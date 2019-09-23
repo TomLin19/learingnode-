@@ -1,14 +1,28 @@
-const http = require('http');
+const express = require('express');
+const path = require('path');   
 
-const hostname = '127.0.0.1';
-const port = 3000;
+// herku assign a port when is deploys 
+const port = process.env.PORT||3000;  
+// a double pipe name "or"
 
-const server = http.createServer((req, res) => {
-  res.statusCode = 200;
-  res.setHeader('Content-Type', 'text/plain');
-  res.end('Hello World we are \n');
+const app = express();
+
+app.use(express.static('public'));
+
+
+// a forward slash is the home route
+app.get('/',(req,res)=>{
+    console.log('at the home route');
+    res.sendFile(paht.join(__dirname+ '/views/index.html'))
 });
 
-server.listen(port, hostname, () => {
-  console.log(`Server running at http://${hostname}:${port}/`);
+app.get('/contact',(rep,res)=>{
+    console.log('at the contact route');
+    res.sendFile(paht.join(__dirname+ '/views/contact.html'));
 });
+
+app.listen(port,() =>{
+    console.log(`Sever running at ${port}`);
+});
+
+
